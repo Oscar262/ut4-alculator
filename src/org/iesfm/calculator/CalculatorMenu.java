@@ -1,7 +1,12 @@
 package org.iesfm.calculator;
 
+import org.iesfm.calculator.Exceptions.DivideByZeroException;
+import org.iesfm.calculator.Exceptions.EmptyArrayException;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class CalculatorMenu {
 
@@ -51,8 +56,8 @@ public class CalculatorMenu {
         return size;
     }
 
-    private int[] askNumbers() {
-        int[] numbers = new int[askSize()];
+    private double[] askNumbers() {
+        double[] numbers = new double[askSize()];
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = askInteger("Introduce un número entero");
         }
@@ -63,13 +68,30 @@ public class CalculatorMenu {
         int operation = askOperation();
         while (operation != 3) {
             if (operation == 1) {
-                calculator.divide(askInteger("Introduce un número entero"), askInteger("Introduce otro número entero"));
+                try {
+                    double result = calculator.divide(askInteger("Introduce un número entero"), askInteger("Introduce otro número entero"));
+                    System.out.println(result);
+                } catch (DivideByZeroException e) {
+                    System.out.println("No se puede dividir entre cero");
+                }
             } else if (operation == 2) {
-                calculator.average(askNumbers());
+
+                try {
+                    double result = calculator.average(askNumbers());
+                    System.out.println(result);
+                } catch (EmptyArrayException e) {
+                    System.out.println("Necesita introducir numeros para calcular la media");
+                }
+
             } else {
                 System.out.println("Opción desconocida");
             }
-
+            System.out.println();
+            try {
+                sleep(350);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             operation = askOperation();
         }
     }
