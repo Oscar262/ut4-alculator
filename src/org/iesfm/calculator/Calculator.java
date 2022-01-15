@@ -9,7 +9,7 @@ public class Calculator {
         if (n2 == 0) {
             throw new DivideByZeroException();
         }
-        return n2 / n1;
+        return n1 / n2;
     }
 
     public double average(double[] numbers) throws EmptyArrayException {
