@@ -1,7 +1,7 @@
 package org.iesfm.calculator;
 
-import org.iesfm.calculator.Exceptions.DivideByZeroException;
-import org.iesfm.calculator.Exceptions.EmptyArrayException;
+import org.iesfm.calculator.exceptions.DivideByZeroException;
+import org.iesfm.calculator.exceptions.EmptyArrayException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -24,6 +24,21 @@ public class CalculatorMenu {
             try {
                 System.out.println(message);
                 number = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Error, no has introducido un número");
+            } finally {
+                scanner.nextLine();
+            }
+        }
+
+        return number;
+
+    }private double askDouble(String message) {
+        Double number = null;
+        while (number == null) {
+            try {
+                System.out.println(message);
+                number = scanner.nextDouble();
             } catch (InputMismatchException e) {
                 System.out.println("Error, no has introducido un número");
             } finally {
@@ -69,7 +84,7 @@ public class CalculatorMenu {
         while (operation != 3) {
             if (operation == 1) {
                 try {
-                    double result = calculator.divide(askInteger("Introduce un número entero"), askInteger("Introduce otro número entero"));
+                    double result = calculator.divide(askDouble("Introduce un número entero"), askDouble("Introduce otro número entero"));
                     System.out.println(result);
                 } catch (DivideByZeroException e) {
                     System.out.println("No se puede dividir entre cero");
@@ -87,11 +102,7 @@ public class CalculatorMenu {
                 System.out.println("Opción desconocida");
             }
             System.out.println();
-            try {
-                sleep(350);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             operation = askOperation();
         }
     }

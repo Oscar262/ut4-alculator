@@ -1,7 +1,7 @@
 package org.iesfm.calculator;
 
-import org.iesfm.calculator.Exceptions.DivideByZeroException;
-import org.iesfm.calculator.Exceptions.EmptyArrayException;
+import org.iesfm.calculator.exceptions.DivideByZeroException;
+import org.iesfm.calculator.exceptions.EmptyArrayException;
 
 public class Calculator {
 
